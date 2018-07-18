@@ -147,5 +147,6 @@ export class Poco {
     }
 }
 
-export * from './plugins/index.js';
+export * from './plugins';
+export * from './types';
 export default Poco;

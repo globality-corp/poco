@@ -1,10 +1,12 @@
+/* @flow */
 import React from 'react';
 import { ApolloProvider } from 'react-apollo';
 
 import createGiApolloClient from '@globality/gi-apollo-client';
 
+import type { PocoPluginType } from '@globality/poco';
 
-export const apolloClient = {
+export const apolloClient: PocoPluginType = {
     name: 'apolloClient',
     factory: ({ container }) => {
         const { configuration } = container;

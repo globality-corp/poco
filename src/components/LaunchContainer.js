@@ -1,21 +1,32 @@
+/* @flow */
 import React from 'react';
-import PropTypes from 'prop-types';
 import { CircularProgress } from '@material-ui/core';
 
 import { SplashScreen } from './styled-components';
 
 
-class LaunchContainer extends React.Component {
+type LaunchContainerProps = {
+    container: Object,
+    createApp: Function,
+    wrappers: Array<any>,
+};
+
+type LaunchContainerState = {
+    ready: boolean,
+}
+
+class LaunchContainer extends React.Component<LaunchContainerProps, LaunchContainerState> {
+    component: Object;
+
     state = {
         ready: false,
     };
 
-    onReady = () => {
+    onReady = (): void => {
         this.setState({ ready: true });
     }
 
-    getComponent = () => {
-        // const defaultWrapper = ({ children }) => <div>{children}</div>;
+    getComponent = (): Object => {
         const { container, createApp, wrappers } = this.props;
         this.component = this.component || createApp({
             container,
@@ -23,9 +34,9 @@ class LaunchContainer extends React.Component {
         });
 
         return wrappers.reduce(
-            (child, provider) => React.createElement(
+            (child: any, provider: any) => React.createElement(
                 provider,
-                { container: this.container },
+                { container },
                 child,
             ),
             this.component,
@@ -49,11 +60,5 @@ class LaunchContainer extends React.Component {
         );
     }
 }
-
-LaunchContainer.propTypes = {
-    container: PropTypes.object.isRequired,
-    createApp: PropTypes.func.isRequired,
-    wrappers: PropTypes.array,
-};
 
 export default LaunchContainer;

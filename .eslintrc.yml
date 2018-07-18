@@ -50,11 +50,13 @@ rules:
     react/jsx-indent: [error, 4]
     react/jsx-indent-props: [error, 4]
     react/jsx-max-props-per-line: 0
+    react/jsx-wrap-multilines: 0
     react/prop-types: 0
     react/forbid-prop-types: [2, { "forbid": ["any"]}]
     react/require-default-props: 0
     react/no-array-index-key: 1
     react/jsx-one-expression-per-line: 0
+    react/sort-comp: 0
 
 globals:
     Promise: true
