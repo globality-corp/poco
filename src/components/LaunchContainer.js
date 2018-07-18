@@ -24,7 +24,7 @@ class LaunchContainer extends React.Component<LaunchContainerProps, LaunchContai
     };
 
     onReady = (): void => {
-        this.setState({ ready: true });
+        setTimeout(() => this.setState({ ready: true }));
     }
 
     getComponent = (): Object => {

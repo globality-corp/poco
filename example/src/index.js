@@ -1,6 +1,5 @@
 import Poco, { HistoryPlugin, IntlPlugin, ReduxPlugin } from '@globality/poco';
 
-import ApolloClientPlugin from './apollo-client';
 import createApp from './app';
 import rootReducer from './reducer';
 
@@ -19,8 +18,6 @@ const POCO_ENVIRONMENT = Object.freeze({
     }
 }); // this will be replaced by a webpack loader and .env files
 
-
-
 const MyApp = new Poco({
     appName: 'poco-example',
     createApp,
@@ -28,7 +25,6 @@ const MyApp = new Poco({
 });
 
 MyApp.load((app) => {
-    app.addPlugin(ApolloClientPlugin);
     app.addPlugin(HistoryPlugin);
     app.addPlugin(IntlPlugin);
     app.addPlugin(ReduxPlugin, {

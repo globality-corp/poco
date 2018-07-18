@@ -3,6 +3,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Bottle from 'bottlejs';
+import get from 'lodash/get';
 
 import LaunchContainer from './components/LaunchContainer';
 import Logger from './logger';
@@ -19,6 +20,8 @@ export class Poco {
 
     _plugins: Array<PocoPluginType>;
 
+    _providerWrappers: Array<any>;
+
     _services: Object;
 
     appName: string;
@@ -28,8 +31,6 @@ export class Poco {
     environment: Object;
 
     logger: Object;
-
-    providerWrappers: any;
 
     rootElement: HTMLElement;
 
@@ -44,6 +45,7 @@ export class Poco {
         rootElement,
     }: PocoConstructorType) {
         this._plugins = [];
+        this._providerWrappers = [];
         this._services = new Bottle();
 
         this.logger = new Logger(appName);
@@ -56,13 +58,7 @@ export class Poco {
     }
 
     addPlugin (pluginObject: PocoPluginType, options?: AddPluginOptionsType): Object {
-        let pluginName;
-
-        if (options && options.name) {
-            pluginName = options.name;
-        } else {
-            pluginName = pluginObject.name;
-        }
+        const pluginName = get(options, 'name') || pluginObject.name;
 
         if (!pluginObject) {
             return this;
@@ -71,29 +67,29 @@ export class Poco {
         this.logger.debug('adding plugin', pluginName);
 
         if (pluginObject.factory) {
-            const { factory } = pluginObject;
-            this._services.factory(pluginName, container => factory({
-                appName: this.appName,
-                container,
-                environment: this.environment || {},
-                options,
-            }));
+            this.addFactory(pluginName, pluginObject.factory, options);
         }
 
         if (pluginObject.provider) {
-            const { provider } = pluginObject;
-            const { container } = this._services;
-
-            if (!this.providerWrappers) {
-                this.providerWrappers = [];
-            }
-
-            this.providerWrappers.push(provider(container));
+            this.addProvider(pluginObject.provider);
         }
 
         this._plugins.push(pluginObject);
 
         return this;
+    }
+
+    addFactory (name: string, factory: Function, options?: Object): void {
+        this._services.factory(name, container => factory({
+            appName: this.appName,
+            container,
+            environment: this.environment || {},
+            options,
+        }));
+    }
+
+    addProvider (provider: Function): void {
+        this._providerWrappers.push(provider(this._services.container));
     }
 
     getService (name: string): Object {
@@ -132,7 +128,7 @@ export class Poco {
                 <LaunchContainer
                     container={container}
                     createApp={this.createApp}
-                    wrappers={this.providerWrappers}
+                    wrappers={this._providerWrappers}
                 />
             );
 
