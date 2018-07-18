@@ -132,20 +132,6 @@ export class Poco {
             }
 
             this.providerWrappers.push(provider(container));
-            // this.providerWrapper = React.createElement(
-            //     provider(container),
-            //     { container },
-            //     this.providerWrapper,
-            // );
-            // if (!this.providerWrapper) {
-            //     this.providerWrapper = provider(container);
-            // } else {
-            //     this.providerWrapper = React.createElement(
-            //         provider(container),
-            //         { container },
-            //         this.providerWrapper,
-            //     );
-            // }
         }
 
         this._plugins.push(pluginObject);
