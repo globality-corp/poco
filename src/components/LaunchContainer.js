@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import compose from 'compose-function';
 import { CircularProgress } from '@material-ui/core';
 
 import { SplashScreen } from './styled-components';
@@ -15,13 +16,21 @@ class LaunchContainer extends React.Component {
     }
 
     getComponent = () => {
-        const defaultWrapper = ({ children }) => <div>{children}</div>;
-        const { container, createApp, wrapper } = this.props;
+        // const defaultWrapper = ({ children }) => <div>{children}</div>;
+        const { container, createApp, wrappers } = this.props;
         this.component = this.component || createApp({
             container,
             onReady: this.onReady,
         });
-        return React.createElement(wrapper || defaultWrapper, {}, this.component);
+
+        return wrappers.reduce(
+            (child, provider) => React.createElement(
+                provider,
+                { container: this.container },
+                child,
+            ),
+            this.component,
+        );
     }
 
     render () {
@@ -45,7 +54,7 @@ class LaunchContainer extends React.Component {
 LaunchContainer.propTypes = {
     container: PropTypes.object.isRequired,
     createApp: PropTypes.func.isRequired,
-    wrapper: PropTypes.func,
+    wrappers: PropTypes.array,
 };
 
 export default LaunchContainer;

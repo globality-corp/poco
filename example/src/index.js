@@ -1,5 +1,5 @@
 // import React from 'react';
-import Poco, { HistoryPlugin } from '@globality/poco';
+import Poco, { HistoryPlugin, IntlPlugin } from '@globality/poco';
 
 import ApolloClientPlugin from './apollo-client';
 import createApp from './app';
@@ -29,5 +29,6 @@ MyApp.load((app) => {
     // console.log('App loading', app);
     app.addPlugin(ApolloClientPlugin);
     app.addPlugin(HistoryPlugin);
+    app.addPlugin(IntlPlugin);
     // app.setLoadingComponent(<div style={{ color: 'red' }}>Loading!</div>);
 });
