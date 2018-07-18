@@ -1,7 +1,6 @@
 import Poco, { HistoryPlugin, IntlPlugin, ReduxPlugin } from '@globality/poco';
 
 import createApp from './app';
-import rootReducer from './reducer';
 
 
 const POCO_ENVIRONMENT = Object.freeze({
@@ -28,6 +27,6 @@ MyApp.load((app) => {
     app.addPlugin(HistoryPlugin);
     app.addPlugin(IntlPlugin);
     app.addPlugin(ReduxPlugin, {
-        rootReducer,
+        rootReducer: state => state,
     });
 });
