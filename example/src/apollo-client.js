@@ -14,7 +14,7 @@ export const apolloClient: PocoPluginType = {
         const graphqlUri = `${hostConfig.origin}${hostConfig.path}`;
 
         return createGiApolloClient({
-            getAccessToken: () => configuration.get('session.idToken'),
+            getAccessToken: () => configuration.get('session.accessToken'),
             graphqlUri,
         });
     },
