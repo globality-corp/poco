@@ -7,16 +7,16 @@ import LaunchContainer from './components/LaunchContainer';
 import Logger from './logger';
 import ConfigurationPlugin from './plugins/configuration';
 import type {
-    PocoConstructorType,
     AddPluginOptionsType,
-    PluginType,
+    PocoConstructorType,
+    PocoPluginType,
 } from './types';
 
 
 export class Poco {
     _loadingComponent: any;
 
-    _plugins: Array<PluginType>;
+    _plugins: Array<PocoPluginType>;
 
     _services: Object;
 
@@ -54,7 +54,7 @@ export class Poco {
         this.rootElement = rootElement || document.querySelector('.root');
     }
 
-    addPlugin (pluginObject: PluginType, options?: AddPluginOptionsType): Object {
+    addPlugin (pluginObject: PocoPluginType, options?: AddPluginOptionsType): Object {
         let pluginName;
 
         if (options && options.name) {
@@ -70,7 +70,8 @@ export class Poco {
         this.logger.debug('adding plugin', pluginName);
 
         if (pluginObject.factory) {
-            this._services.factory(pluginName, container => pluginObject.factory({
+            const { factory } = pluginObject;
+            this._services.factory(pluginName, container => factory({
                 appName: this.appName,
                 container,
                 environment: this.environment || {},

@@ -2,6 +2,7 @@ import React from 'react';
 
 import Poco from '..';
 
+
 describe('Poco smoke tests', () => {
 
     const addEventListener = jest.fn();

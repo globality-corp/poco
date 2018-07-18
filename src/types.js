@@ -6,10 +6,10 @@ export type PocoConstructorType = {
     rootElement: HTMLElement,
 };
 
-export type PluginType = {
+export type PocoPluginType = {
     name: string,
-    factory: (Object) => Object,
-    provider: (Object) => any,
+    factory: ?Function,
+    provider: ?Function,
 };
 
 export type AddPluginOptionsType = {

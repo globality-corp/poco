@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 
+
 export const SplashScreen = styled.div`
     position: fixed;
     top: 0;

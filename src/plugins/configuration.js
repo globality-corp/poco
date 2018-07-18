@@ -1,9 +1,21 @@
+/* @flow */
 import get from 'lodash/get';
 import merge from 'lodash/merge';
 
 import Logger from '../logger';
 
+import type { PocoPluginType } from '../types';
+
+
 class ConfigurationService {
+    _environment: Object;
+
+    appName: string;
+
+    config: Object;
+
+    logger: Object;
+
     constructor ({ appName, environment }) {
         this.logger = new Logger('ConfigurationService');
         this.logger.debug('constructor');
@@ -13,11 +25,11 @@ class ConfigurationService {
         this._environment = environment;
     }
 
-    getConfig () {
+    getConfig (): Object {
         return this.config;
     }
 
-    get (path, defaultValue) {
+    get (path: string, defaultValue?: any): any {
         return get(this.config, path, defaultValue);
     }
 
@@ -29,7 +41,7 @@ class ConfigurationService {
     //     // 4. Merge with this.config
     // }
 
-    load () {
+    load (): Promise<Object> {
         const useRemote = get(this._environment, 'remoteConfigs.enabled', false);
 
         if (useRemote) {
@@ -49,7 +61,7 @@ class ConfigurationService {
         });
     }
 
-    loadRemote (urls) {
+    loadRemote (urls: Array<string>): Promise<Object> | any {
         const promises = urls.map(url => fetch(url).catch((e) => {
             this.logger.error(`error loading configuration from ${url}`, e);
             return { json: () => Promise.resolve({}) };
@@ -71,7 +83,7 @@ class ConfigurationService {
     }
 }
 
-const ConfigurationPlugin = {
+const ConfigurationPlugin: PocoPluginType = {
     name: 'configuration',
     factory: ({ appName, environment }) => new ConfigurationService({ appName, environment }),
     provider: null,
