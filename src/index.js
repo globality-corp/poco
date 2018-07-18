@@ -76,6 +76,7 @@ export class Poco {
                 appName: this.appName,
                 container,
                 environment: this.environment || {},
+                options,
             }));
         }
 
@@ -148,6 +149,6 @@ export class Poco {
     }
 }
 
-export * from './plugins';
+export * from './plugins/index.js';
 export * from './types';
 export default Poco;

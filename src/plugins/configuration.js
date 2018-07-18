@@ -2,6 +2,7 @@
 
 import get from 'lodash/get';
 import merge from 'lodash/merge';
+import set from 'lodash/set';
 
 import Logger from '../logger';
 
@@ -34,13 +35,16 @@ class ConfigurationService {
         return get(this.config, path, defaultValue);
     }
 
-    // setLocal (path, value) {
-    //     // TODO: set and save to localStorage:
-    //     // 1. Load from localStorage
-    //     // 2. Set path: value
-    //     // 3. Save to localStorage
-    //     // 4. Merge with this.config
-    // }
+    getLocal () {
+        return JSON.parse(localStorage.getItem(this.appName) || '{}');
+    }
+
+    setLocal (path, value) {
+        const currentValue = this.getLocal();
+        set(currentValue, path, value);
+        localStorage.setItem(this.appName, JSON.stringify(currentValue));
+        this.config = merge(this.config, currentValue);
+    }
 
     load (): Promise<Object> {
         const useRemote = get(this._environment, 'remoteConfigs.enabled', false);
@@ -72,7 +76,7 @@ class ConfigurationService {
             return Promise
                 .all(requests.map(request => request.json()))
                 .then((responses) => {
-                    const localConfig = localStorage.getItem(this.appName) || {};
+                    const localConfig = this.getLocal();
                     const merged = merge({}, ...responses, this.config, localConfig);
                     this.config = merged;
                     this.logger.debug('merged configurations', this.config);

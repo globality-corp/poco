@@ -8,7 +8,7 @@ import inject from 'redux-inject';
 
 import type { PocoPluginType } from '../types';
 
-const reduxStore: PocoPluginType = {
+const reduxStorePlugin: PocoPluginType = {
     name: 'reduxStore',
     factory: ({ container, options }) => {
         const { rootReducer } = options;
@@ -30,4 +30,4 @@ const reduxStore: PocoPluginType = {
         <ReduxStoreProvider store={container.reduxStore}>{children}</ReduxStoreProvider>),
 };
 
-export default reduxStore;
+export default reduxStorePlugin;
