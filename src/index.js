@@ -42,6 +42,9 @@ export class Poco {
         environment,
         rootElement,
     }: PocoConstructorType) {
+        this._plugins = [];
+        this._services = new Bottle();
+
         this.logger = new Logger(appName);
         this.logger.debug('constructor');
 
@@ -49,13 +52,56 @@ export class Poco {
         this.createApp = createApp;
         this.environment = environment;
         this.rootElement = rootElement || document.querySelector('.root');
+    }
+
+    addPlugin (pluginObject: PluginType, options?: AddPluginOptionsType): Object {
+        let pluginName;
+
+        if (options && options.name) {
+            pluginName = options.name;
+        } else {
+            pluginName = pluginObject.name;
+        }
+
+        if (!pluginObject) {
+            return this;
+        }
+
+        this.logger.debug('adding plugin', pluginName);
+
+        if (pluginObject.factory) {
+            this._services.factory(pluginName, container => pluginObject.factory({
+                appName: this.appName,
+                container,
+                environment: this.environment || {},
+            }));
+        }
+
+        if (pluginObject.provider) {
+            const { provider } = pluginObject;
+            const { container } = this._services;
+
+            if (!this.providerWrappers) {
+                this.providerWrappers = [];
+            }
+
+            this.providerWrappers.push(provider(container));
+        }
+
+        this._plugins.push(pluginObject);
+
+        return this;
+    }
+
+    getService (name: string): Object {
+        return this._services.container[name];
+    }
+
+    load (callback?: Function): Object {
+        this.logger.debug('load');
 
         // Load default plugins
         this.addPlugin(ConfigurationPlugin);
-    }
-
-    load (callback?: Function): void {
-        this.logger.debug('load');
 
         document.addEventListener('DOMContentLoaded', () => {
             if (callback) {
@@ -63,6 +109,8 @@ export class Poco {
             }
             this.render();
         });
+
+        return this;
     }
 
     render (): void {
@@ -92,57 +140,9 @@ export class Poco {
         });
     }
 
-    addPlugin (pluginObject: PluginType, options?: AddPluginOptionsType): void {
-        if (!this._plugins) {
-            this._plugins = [];
-        }
-
-        if (!this._services) {
-            this._services = new Bottle();
-        }
-
-        let pluginName;
-
-        if (options && options.name) {
-            pluginName = options.name;
-        } else {
-            pluginName = pluginObject.name;
-        }
-
-        if (!pluginObject) {
-            return;
-        }
-
-        this.logger.debug('adding plugin', pluginName);
-
-        if (pluginObject.factory) {
-            this._services.factory(pluginName, container => pluginObject.factory({
-                appName: this.appName,
-                container,
-                environment: this.environment || {},
-            }));
-        }
-
-        if (pluginObject.provider) {
-            const { provider } = pluginObject;
-            const { container } = this._services;
-
-            if (!this.providerWrappers) {
-                this.providerWrappers = [];
-            }
-
-            this.providerWrappers.push(provider(container));
-        }
-
-        this._plugins.push(pluginObject);
-    }
-
-    getService (name: string): Object {
-        return this._services.container[name];
-    }
-
-    setLoadingComponent (component: any): void {
+    setLoadingComponent (component: any): Object {
         this._loadingComponent = component;
+        return this;
     }
 }
 

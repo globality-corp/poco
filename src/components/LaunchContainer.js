@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import compose from 'compose-function';
 import { CircularProgress } from '@material-ui/core';
 
 import { SplashScreen } from './styled-components';
