@@ -89,4 +89,3 @@ environment: {
 # TODO
 
 - Use React 16.3's Context API for providers.
-- ...

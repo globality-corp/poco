@@ -1,12 +1,13 @@
 import Poco, { HistoryPlugin, IntlPlugin, ReduxPlugin } from '@globality/poco';
 
 import createApp from './app';
+import environment from './environment';
 
 
 const MyApp = new Poco({
     appName: 'poco-example',
     createApp,
-    environment: JSON.parse(process.env.REACT_APP_ENVIRONMENT || '{}'),
+    environment,
 });
 
 MyApp.load((app) => {

@@ -53,7 +53,10 @@ class ConfigurationService {
             this.logger.debug('load remote configuration');
 
             const origin = get(this._environment, 'remoteConfigs.origin', '');
-            const urls = get(this._environment, 'remoteConfigs.paths', []).map(path => `${origin}${path}`);
+            const urls = get(this._environment, 'remoteConfigs.paths', [])
+                .filter(Boolean)
+                .map(path => `${origin}${path}`);
+            console.log('urls', urls);
             return this.loadRemote(urls);
         }
 
