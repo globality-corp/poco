@@ -1,4 +1,5 @@
 /* @flow */
+
 import get from 'lodash/get';
 import merge from 'lodash/merge';
 

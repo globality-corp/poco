@@ -1,4 +1,5 @@
 /* @flow */
+
 import { createBrowserHistory } from 'history';
 
 import type { PocoPluginType } from '../types';

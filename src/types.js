@@ -1,4 +1,5 @@
 /* @flow */
+
 export type PocoConstructorType = {
     appName: string,
     createApp: Function,

@@ -1,4 +1,5 @@
 /* @flow */
+
 class Logger {
     prefix: string;
 
