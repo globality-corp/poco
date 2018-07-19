@@ -1,17 +1,21 @@
+/* @flow */
+
 import React from 'react';
 
 import Poco from '..';
+import type { PocoPluginType, PocoConstructorType } from '../types';
 
 
 describe('Poco smoke tests', () => {
 
     const addEventListener = jest.fn();
 
+    // $FlowIgnore
     Object.defineProperty(document, 'addEventListener', {
         value: addEventListener,
     });
 
-    const defaultOptions = {
+    const defaultOptions: PocoConstructorType = {
         appName: 'test-app',
         createApp: () => <div>My App</div>,
         environment: {
@@ -40,10 +44,15 @@ describe('Poco smoke tests', () => {
 
     it('should allow adding plugins', () => {
         const instance = new Poco(defaultOptions);
+        const plugin: PocoPluginType = {
+            name: 'myPlugin',
+            factory: null,
+            provider: null,
+        };
 
         expect(instance._plugins.length).toEqual(0);
 
-        instance.addPlugin({ name: 'myPlugin' });
+        instance.addPlugin(plugin);
         expect(instance._plugins.length).toEqual(1);
     });
 });

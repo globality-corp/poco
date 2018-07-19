@@ -54,6 +54,7 @@ export class Poco {
         this.appName = appName;
         this.createApp = createApp;
         this.environment = environment;
+        // $FlowFixMe: figure out the flow error
         this.rootElement = rootElement || document.querySelector('.root');
     }
 

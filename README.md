@@ -53,7 +53,7 @@ App.load((app) => {
 
 # Plugins
 
-Currently, there are a few plug-ins:
+Currently, there are a few included plug-ins:
 
 - `ConfigurationPlugin` - Loads configuration from remote URLs and localStorage
 - `HistoryPlugin` - Creates a `history/createBrowserHistory` instance
@@ -70,7 +70,7 @@ The 3 sources are:
 2. **Remote**: Loaded from one or more remote JSON files
 3. **localStorage**: Loaded from the browser's `localStorage`, intended for feature flags and session state
 
-The different sources are loaded in this order, in other words: `Object.assign({}, environmentConfig, remoteConfig, localConfig)`
+The different sources are loaded and merged in this order, in other words: `_.merge({}, environmentConfig, remoteConfig, localConfig)`
 
 ## Setup
 
