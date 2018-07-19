@@ -56,7 +56,6 @@ class ConfigurationService {
             const urls = get(this._environment, 'remoteConfigs.paths', [])
                 .filter(Boolean)
                 .map(path => `${origin}${path}`);
-            console.log('urls', urls);
             return this.loadRemote(urls);
         }
 
