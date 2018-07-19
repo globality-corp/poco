@@ -13,8 +13,7 @@
     "verify": "yarn lint && yarn test"
   },
   "author": "Globality Engineering",
-  "license": "UNLICENSED",
-  "private": true,
+  "license": "MIT",
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.3",
