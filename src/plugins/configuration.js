@@ -64,7 +64,7 @@ class ConfigurationService {
         return new Promise((resolve) => {
             setTimeout(() => {
                 resolve(this);
-            }, 3000);
+            }, 500);
         });
     }
 

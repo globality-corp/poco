@@ -1,6 +1,6 @@
 {
   "name": "@globality/poco",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "description": "Opinionated, extensible React applications framework",
   "main": "dist/index.js",
   "scripts": {
@@ -14,6 +14,8 @@
   },
   "author": "Globality Engineering",
   "license": "MIT",
+  "homepage": "https://github.com/globality-corp/poco",
+  "files": ["dist"],
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.3",
