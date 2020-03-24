@@ -13,8 +13,16 @@ export default {
         babel({
             babelrc: false,
             exclude: 'node_modules/**',
-            plugins: ['external-helpers', 'transform-class-properties', 'transform-export-extensions'],
-            presets: [['env', { modules: false }], 'flow', 'react'],
+            plugins: [
+                '@babel/plugin-external-helpers',
+                '@babel/plugin-proposal-class-properties',
+                '@babel/plugin-proposal-export-default-from',
+            ],
+            presets: [
+                ['@babel/preset-env', { modules: false }],
+                '@babel/preset-flow',
+                '@babel/preset-react',
+            ],
             runtimeHelpers: true,
         }),
     ],
