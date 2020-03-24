@@ -19,9 +19,12 @@ type LaunchContainerState = {
 class LaunchContainer extends React.Component<LaunchContainerProps, LaunchContainerState> {
     component: Object;
 
-    state = {
-        ready: false,
-    };
+    constructor (props: Object) {
+        super(props);
+        this.state = {
+            ready: false,
+        };
+    }
 
     onReady = (): void => {
         setTimeout(() => this.setState({ ready: true }));
