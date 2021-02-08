@@ -8,7 +8,6 @@ import Logger from '../logger';
 
 import type { PocoPluginType } from '../types';
 
-
 class ConfigurationService {
     _environment: Object;
 

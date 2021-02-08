@@ -4,7 +4,6 @@ import { createBrowserHistory } from 'history';
 
 import type { PocoPluginType } from '../types';
 
-
 const history: PocoPluginType = {
     name: 'history',
     factory: ({ container }) => createBrowserHistory({
