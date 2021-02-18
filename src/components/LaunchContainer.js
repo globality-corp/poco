@@ -5,7 +5,6 @@ import { CircularProgress } from '@material-ui/core';
 
 import { SplashScreen } from './styled-components';
 
-
 type LaunchContainerProps = {
     container: Object,
     createApp: Function,

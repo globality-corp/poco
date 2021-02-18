@@ -5,7 +5,6 @@ import React from 'react';
 import Poco from '..';
 import type { PocoPluginType, PocoConstructorType } from '../types';
 
-
 describe('Poco smoke tests', () => {
 
     const addEventListener = jest.fn();

@@ -5,7 +5,6 @@ import { IntlProvider } from 'react-intl';
 
 import type { PocoPluginType } from '../types';
 
-
 const intlService: PocoPluginType = {
     name: 'intlService',
     factory: null,
