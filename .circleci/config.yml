@@ -109,6 +109,8 @@ workflows:
   release:
     jobs:
       - checkout:
+          context:
+            - Globality-Common
           filters:
             tags:
               only: /[0-9]+(\.[0-9]+)*/
