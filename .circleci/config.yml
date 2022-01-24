@@ -94,7 +94,7 @@ workflows:
 
   build:
     jobs:
-      - checkout
+      - checkout:
           context:
             - Globality-Common
       - lint:
